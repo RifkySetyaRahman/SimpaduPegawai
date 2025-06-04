@@ -25,9 +25,9 @@
                 <td>{{ $p->provinsi->nama_provinsi }}</td>
                 <td>{{ $p->kokab->nama_kokab }}</td>
                 <td>
-                    <a href="{{ route('pegawai.show', $p->id) }}" class="btn btn-info btn-sm">Detail</a>
-                    <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('pegawai.destroy', $p->id) }}" method="POST" class="d-inline"
+                    <a href="{{ route('pegawai.show', $p->id_pegawai) }}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{{ route('pegawai.edit', $p->id_pegawai) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('pegawai.destroy', $p->id_pegawai) }}" method="POST" class="d-inline"
                           onsubmit="return confirm('Yakin ingin menghapus?')">
                         @csrf
                         @method('DELETE')

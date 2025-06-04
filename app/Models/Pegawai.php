@@ -11,6 +11,7 @@ class Pegawai extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id_pegawai',
         'nama_pegawai',
         'agama',
         'id_status',

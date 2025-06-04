@@ -29,13 +29,21 @@ class PegawaiWebController extends Controller
     {
         $request->validate([
             'id_pegawai' => 'required|string|unique:pegawai,id_pegawai',
-            'nama' => 'required|string|max:255',
+            'nama_pegawai' => 'required|string|max:255',
+            'agama' => 'required|string|max:50',
             'status_id' => 'required|exists:status,id',
             'kokab_id' => 'required|exists:kokab,id',
             'provinsi_id' => 'required|exists:provinsi,id',
         ]);
 
-        Pegawai::create($request->all());
+        Pegawai::create([
+            'id_pegawai' => $request->id_pegawai,
+            'nama_pegawai' => $request->nama_pegawai,
+            'agama' => $request->agama,
+            'status_id' => $request->status_id,
+            'kokab_id' => $request->kokab_id,
+            'provinsi_id' => $request->provinsi_id,
+        ]);
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
     }
@@ -52,17 +60,29 @@ class PegawaiWebController extends Controller
     {
         $request->validate([
             'id_pegawai' => 'required|string|unique:pegawai,id_pegawai,' . $pegawai->id,
-            'nama' => 'required|string|max:255',
+            'nama_pegawai' => 'required|string|max:255',
+            'agama' => 'required|string|max:50',
             'status_id' => 'required|exists:status,id',
             'kokab_id' => 'required|exists:kokab,id',
             'provinsi_id' => 'required|exists:provinsi,id',
         ]);
 
-        $pegawai->update($request->all());
+        $pegawai->update([
+            'id_pegawai' => $request->id_pegawai,
+            'nama_pegawai' => $request->nama_pegawai,
+            'agama' => $request->agama,
+            'status_id' => $request->status_id,
+            'kokab_id' => $request->kokab_id,
+            'provinsi_id' => $request->provinsi_id,
+        ]);
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil diperbarui.');
     }
 
+    public function show(Pegawai $pegawai)
+{
+    return view('pegawai.show', compact('pegawai'));
+}
     public function destroy(Pegawai $pegawai)
     {
         $pegawai->delete();
