@@ -10,6 +10,25 @@ use App\Http\Controllers\Web\PegawaiWebController;
 use App\Http\Controllers\Web\PresensiWebController;
 use App\Http\Controllers\Web\ProvinsiWebController;
 
+use App\Http\Controllers\Web\DashboardController;
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+use App\Http\Controllers\Web\KelasWebController;
+Route::get('/kelas/masuk', function () {
+    return view('kelas.masuk');
+});
+
+use App\Http\Controllers\Web\KelasPesertaWebController;
+Route::get('/kelas/pesertakelas', function () {
+    return view('kelas.pesertakelas');
+});
+
+use App\Http\Controllers\Web\KelasPresensiWebController;
+Route::get('/kelas/presensikelas', function () {
+    return view('kelas.presensikelas');
+});
+
 // Halaman beranda
 Route::get('/', function () {
     return view('welcome');
