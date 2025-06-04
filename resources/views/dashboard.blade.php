@@ -261,4 +261,65 @@
 
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<!-- Modal Konfirmasi Akhiri Kelas -->
+<div class="modal fade" id="modalKonfirmasiAkhirKelas" tabindex="-1" aria-labelledby="modalKonfirmasiAkhirKelasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-4">
+        <div style="font-size:1.15rem; font-weight:500; margin-bottom:18px;">
+          Apakah anda yakin ingin mengakhiri kelas?
+        </div>
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="btnAkhiriKelasConfirm">Akhiri</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sukses Akhiri Kelas -->
+<div class="modal fade" id="modalSuksesAkhirKelas" tabindex="-1" aria-labelledby="modalSuksesAkhirKelasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-5">
+        <div style="font-size:1.3rem; font-weight:500; margin-bottom:18px;">
+          Kelas berakhir
+        </div>
+        <div style="font-size:3rem; color:#2ecc40; margin-bottom:8px;">
+          <i class="bi bi-check-circle"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script untuk handle modal -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Untuk semua tombol Akhiri Kelas
+    document.querySelectorAll('.btn-akhir').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+            modalKonfirmasi.show();
+        });
+    });
+
+    // Tombol konfirmasi di modal
+    document.getElementById('btnAkhiriKelasConfirm').addEventListener('click', function() {
+        var modalKonfirmasi = bootstrap.Modal.getInstance(document.getElementById('modalKonfirmasiAkhirKelas'));
+        modalKonfirmasi.hide();
+
+        setTimeout(function() {
+            var modalSukses = new bootstrap.Modal(document.getElementById('modalSuksesAkhirKelas'));
+            modalSukses.show();
+            // Modal sukses otomatis hilang setelah 1.5 detik
+            setTimeout(function() {
+                modalSukses.hide();
+            }, 1500);
+        }, 400);
+    });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

@@ -167,7 +167,7 @@
         </div>
         <!-- Main Content -->
         <div class="col-md-10">
-            <button class="btn btn-back mb-2">&larr; Kembali ke menu</button>
+            <a href="{{ route('dashboard') }}" class="btn btn-link mb-2">&larr; Kembali ke menu</a>
             <div class="mb-2">
                 <input type="text" class="search-box" placeholder="&#128269;  NIM/ Nama Mahasiswa">
             </div>

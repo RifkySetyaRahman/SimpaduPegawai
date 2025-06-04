@@ -142,25 +142,24 @@
         align-items: center;
         margin-right: 24px;
     }
+   
     .presensi-status-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: none;
-        font-weight: bold;
-        font-size: 1.1rem;
-        background: #e0e0e0;
-        color: #222;
-        transition: background 0.2s, color 0.2s;
-        cursor: pointer;
-    }
-    .presensi-status-btn.active, .presensi-status-btn.hadir {
-        background: #1565c0;
-        color: #fff;
-    }
-    .presensi-status-btn.sakit { background: #ffb300; color: #fff; }
-    .presensi-status-btn.izin { background: #43a047; color: #fff; }
-    .presensi-status-btn.alpha { background: #e53935; color: #fff; }
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: #e0e0e0; /* abu-abu default */
+    color: #222;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+/* Hanya tombol yang aktif yang berwarna */
+    .presensi-status-btn.active.hadir { background: #1565c0; color: #fff; }
+    .presensi-status-btn.active.sakit { background: #ffb300; color: #fff; }
+    .presensi-status-btn.active.izin  { background: #43a047; color: #fff; }
+    .presensi-status-btn.active.alpha { background: #e53935; color: #fff; }
     @media (max-width: 991px) {
         .sidebar-menu {
             min-height: unset;
@@ -238,7 +237,7 @@
         </div>
         <!-- Main Content -->
         <div class="col-md-10">
-            <button class="btn btn-back mb-2">&larr; Kembali ke menu</button>
+            <a href="{{ route('dashboard') }}" class="btn btn-link mb-2">&larr; Kembali ke menu</a>
             <div class="kelas-info-box mb-3">
                 <div class="row">
                     <div class="col-md-4">
@@ -262,12 +261,46 @@
                 </div>
             </div>
 
-            <div class="presensi-header-row mb-2">
-                <div style="font-weight:500;">Pertemuan hari ini</div>
-                <div class="tanggal-box ms-3">Selasa, 29 April 2025</div>
-                <button class="btn-reset ms-3"><i class="bi bi-x-circle"></i> Reset</button>
-                <button class="btn-hadir"><i class="bi bi-check-circle"></i> Tandai Semua Hadir</button>
-            </div>
+            
+<div class="presensi-header-row mb-2">
+    <div style="font-weight:500;">Pertemuan hari ini</div>
+    <div class="d-flex align-items-center ms-3">
+        <input type="date" id="tanggal-pilih" class="form-control" style="width:auto;">
+        <span id="tanggal-terpilih" class="tanggal-box ms-3"></span>
+    </div>
+    <button class="btn-reset ms-3"><i class="bi bi-x-circle"></i> Reset</button>
+    <button class="btn-hadir"><i class="bi bi-check-circle"></i> Tandai Semua Hadir</button>
+</div>
+
+
+<script>
+    // Format tanggal ke format lokal (misal: Selasa, 29 April 2025)
+    function formatTanggalLocal(dateStr) {
+        if (!dateStr) return '';
+        const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        const hari = [
+            "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+        ];
+        const d = new Date(dateStr);
+        return hari[d.getDay()] + ', ' + d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputTanggal = document.getElementById('tanggal-pilih');
+        const spanTanggal = document.getElementById('tanggal-terpilih');
+        // Set default ke hari ini
+        const today = new Date().toISOString().split('T')[0];
+        inputTanggal.value = today;
+        spanTanggal.textContent = formatTanggalLocal(today);
+
+        inputTanggal.addEventListener('change', function() {
+            spanTanggal.textContent = formatTanggalLocal(this.value);
+        });
+    });
+</script>
 
             <div class="presensi-list">
                 <!-- Presensi Item -->
@@ -277,10 +310,10 @@
                         <div class="presensi-nim">B2310010</div>
                     </div>
                     <div class="presensi-status-group">
-                        <button class="presensi-status-btn hadir active">H</button>
-                        <button class="presensi-status-btn sakit">S</button>
-                        <button class="presensi-status-btn izin">I</button>
-                        <button class="presensi-status-btn alpha">A</button>
+                    <button class="presensi-status-btn hadir">H</button>
+                    <button class="presensi-status-btn sakit">S</button>
+                    <button class="presensi-status-btn izin">I</button>
+                    <button class="presensi-status-btn alpha">A</button>
                     </div>
                 </div>
                 <div class="presensi-item">
@@ -289,10 +322,10 @@
                         <div class="presensi-nim">B2310011</div>
                     </div>
                     <div class="presensi-status-group">
-                        <button class="presensi-status-btn hadir active">H</button>
-                        <button class="presensi-status-btn sakit">S</button>
-                        <button class="presensi-status-btn izin">I</button>
-                        <button class="presensi-status-btn alpha">A</button>
+                    <button class="presensi-status-btn hadir">H</button>
+                    <button class="presensi-status-btn sakit">S</button>
+                    <button class="presensi-status-btn izin">I</button>
+                    <button class="presensi-status-btn alpha">A</button>
                     </div>
                 </div>
                 <div class="presensi-item">
@@ -301,10 +334,10 @@
                         <div class="presensi-nim">B2310012</div>
                     </div>
                     <div class="presensi-status-group">
-                        <button class="presensi-status-btn hadir active">H</button>
-                        <button class="presensi-status-btn sakit">S</button>
-                        <button class="presensi-status-btn izin">I</button>
-                        <button class="presensi-status-btn alpha">A</button>
+                    <button class="presensi-status-btn hadir">H</button>
+                    <button class="presensi-status-btn sakit">S</button>
+                    <button class="presensi-status-btn izin">I</button>
+                    <button class="presensi-status-btn alpha">A</button>
                     </div>
                 </div>
                 <!-- Tambahkan peserta lain sesuai kebutuhan -->
@@ -315,4 +348,71 @@
 
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- Modal Konfirmasi Reset Presensi -->
+<div class="modal fade" id="modalKonfirmasiResetPresensi" tabindex="-1" aria-labelledby="modalKonfirmasiResetPresensiLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-4">
+        <div style="font-size:1.15rem; font-weight:500; margin-bottom:18px;">
+          Apakah Anda yakin ingin me-reset semua presensi?
+        </div>
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="btnResetPresensiConfirm">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Bundle JS (wajib untuk modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Pilih status presensi
+    document.querySelectorAll('.presensi-status-group').forEach(function(group) {
+        group.querySelectorAll('.presensi-status-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                group.querySelectorAll('.presensi-status-btn').forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+            });
+        });
+    });
+
+    // Modal Reset
+    var modalReset = new bootstrap.Modal(document.getElementById('modalKonfirmasiResetPresensi'));
+
+    // Pastikan hanya tombol reset di header yang digunakan
+    document.querySelectorAll('.btn-reset').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            // Cek agar bukan tombol di modal
+            if (!btn.closest('.modal')) {
+                modalReset.show();
+            }
+        });
+    });
+
+    document.getElementById('btnResetPresensiConfirm').addEventListener('click', function() {
+        document.querySelectorAll('.presensi-status-group').forEach(function(group) {
+            group.querySelectorAll('.presensi-status-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+        });
+        modalReset.hide();
+    });
+
+    // Tandai Semua Hadir
+    document.querySelector('.btn-hadir').addEventListener('click', function() {
+        document.querySelectorAll('.presensi-status-group').forEach(function(group) {
+            group.querySelectorAll('.presensi-status-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            var btnHadir = group.querySelector('.presensi-status-btn.hadir');
+            if(btnHadir) btnHadir.classList.add('active');
+        });
+    });
+});
+</script>
 @endsection

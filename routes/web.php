@@ -13,7 +13,7 @@ use App\Http\Controllers\Web\ProvinsiWebController;
 use App\Http\Controllers\Web\DashboardController;
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
+})->name('dashboard');
 
 use App\Http\Controllers\Web\KelasWebController;
 Route::get('/kelas/masuk', function () {

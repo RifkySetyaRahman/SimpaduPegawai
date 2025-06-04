@@ -164,7 +164,7 @@
         </div>
         <!-- Main Content -->
         <div class="col-md-10">
-            <a href="#" class="btn btn-link mb-2">&larr; Kembali ke menu</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-link mb-2">&larr; Kembali ke menu</a>
             <div class="kelas-info-box mb-3">
                 <div class="row">
                     <div class="col-md-4">
