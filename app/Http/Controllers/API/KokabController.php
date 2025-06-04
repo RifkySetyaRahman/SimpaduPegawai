@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\KoKab;
+use App\Models\Kokab;
 use Illuminate\Http\Request;
-use App\Http\Resources\KoKabResource;
+use App\Http\Resources\KokabResource;
 
-class KoKabController extends Controller
+class KokabController extends Controller
 {
     public function index()
     {
-        return KoKab::all();
+        return Kokab::all();
     }
 
     public function store(Request $request)
@@ -21,26 +21,26 @@ class KoKabController extends Controller
             'id_provinsi' => 'required|exists:provinsi,id_provinsi',
         ]);
 
-        return KoKab::create($validated);
+        return Kokab::create($validated);
     }
 
     public function show($id)
     {
-        return KoKab::findOrFail($id);
+        return Kokab::findOrFail($id);
     }
 
     public function update(Request $request, $id)
     {
-        $KoKab = KoKab::findOrFail($id);
+        $kokab = Kokab::findOrFail($id);
 
         $validated = $request->validate([
-            'nama_KoKab' => 'sometimes|required|string|max:100',
+            'nama_kokab' => 'sometimes|required|string|max:100',
             'id_provinsi' => 'sometimes|required|exists:provinsi,id_provinsi',
         ]);
 
-        $KoKab->update($validated);
+        $kokab->update($validated);
 
-        return $KoKab;
+        return $kokab;
     }
 
     public function destroy($id)
