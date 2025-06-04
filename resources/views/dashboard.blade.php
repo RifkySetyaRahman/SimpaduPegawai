@@ -168,7 +168,7 @@
             <div class="card card-jadwal mb-3 p-3">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div>
-                        <strong>TEKNIK INFORMATIKA 4A (AX100)</strong>
+                        <strong>TEKNIK INFORMATIKA 4E (AXIOO)</strong>
                     </div>
                     <div>
                         <span class="badge bg-primary">Praktikum</span>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="col-md-3 text-end">
                         <button class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <button class="btn btn-primary btn-sm mb-1">Masuk Kelas</button>
+                        <a href="{{ url('/kelas/masuk') }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
                         <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
                 <div class="row mb-2">
                     <div class="col-md-3">
                         <i class="bi bi-clock"></i> <strong>Waktu</strong><br>
-                        02.30 - 04.30
+                        12.30 - 16.00
                     </div>
                     <div class="col-md-3">
                         <i class="bi bi-geo-alt"></i> <strong>Ruang</strong><br>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="col-md-3 text-end">
                         <button class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <button class="btn btn-primary btn-sm mb-1">Masuk Kelas</button>
+                        <a href="{{ url('/kelas/masuk') }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
                         <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
                     </div>
                 </div>

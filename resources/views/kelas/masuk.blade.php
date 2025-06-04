@@ -156,11 +156,11 @@
         <!-- Sidebar -->
         <div class="col-md-2 mb-3">
             <div class="sidebar-menu">
-                <a href="#" class="nav-link active"><i class="bi bi-journal-bookmark"></i> Jadwal Perkuliahan</a>
-                <a href="#" class="nav-link"><i class="bi bi-people"></i> Peserta Kelas</a>
-                <a href="#" class="nav-link"><i class="bi bi-person-check"></i> Presensi Kelas</a>
-                <a href="#" class="nav-link"><i class="bi bi-card-checklist"></i> Nilai Perkuliahan</a>
-            </div>
+            <a href="#" class="nav-link"><i class="bi bi-journal-bookmark"></i> Jadwal Perkuliahan</a>
+            <a href="{{ url('/kelas/pesertakelas') }}" class="nav-link"><i class="bi bi-people"></i> Peserta Kelas</a>
+            <a href="{{ url('/kelas/presensikelas') }}" class="nav-link"><i class="bi bi-person-check"></i> Presensi Kelas</a>
+            <a href="#" class="nav-link"><i class="bi bi-card-checklist"></i> Nilai Perkuliahan</a>
+        </div>
         </div>
         <!-- Main Content -->
         <div class="col-md-10">

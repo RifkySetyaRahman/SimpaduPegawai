@@ -182,7 +182,7 @@
 </style>
 
 <div class="dashboard-header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Logo_Politeknik_Negeri_Banjarmasin.png" alt="Logo" />
+    <img src="{{ asset('images/poliban.png') }}" alt="Logo" />
     <div>
         <h2>POLITEKNIK NEGERI BANJARMASIN</h2>
         <div>Hallo, Muhammad Saufi - Dosen</div>
@@ -229,12 +229,12 @@
         <!-- Sidebar -->
         <div class="col-md-2 mb-3">
             <div class="sidebar-menu">
-                <a href="#" class="nav-link"><i class="bi bi-journal-bookmark"></i> Jadwal Perkuliahan</a>
-                <a href="#" class="nav-link"><i class="bi bi-people"></i> Peserta Kelas</a>
-                <a href="#" class="nav-link active"><i class="bi bi-person-check"></i> Presensi Kelas</a>
-                <a href="#" class="nav-link"><i class="bi bi-card-checklist"></i> Nilai Perkuliahan</a>
-                <a href="#" class="nav-link"><i class="bi bi-person-badge"></i> Dosen Pengajar</a>
-            </div>
+            <a href="{{ url('/kelas/masuk') }}" class="nav-link"><i class="bi bi-journal-bookmark"></i> Jadwal Perkuliahan</a>
+            <a href="{{ url('/kelas/pesertakelas') }}" class="nav-link"><i class="bi bi-people"></i> Peserta Kelas</a>
+            <a href="{{ url('/kelas/presensikelas') }}" class="nav-link"><i class="bi bi-person-check"></i> Presensi Kelas</a>
+            <a href="#" class="nav-link"><i class="bi bi-card-checklist"></i> Nilai Perkuliahan</a>
+            <a href="#" class="nav-link"><i class="bi bi-person-badge"></i> Dosen Pengajar</a>
+</div>
         </div>
         <!-- Main Content -->
         <div class="col-md-10">
