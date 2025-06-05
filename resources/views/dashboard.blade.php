@@ -158,10 +158,30 @@
                     <div style="font-weight:500;">Jadwal Mengajar Hari Ini</div>
                     <small>Anda memiliki 2 jadwal mengajar hari ini</small>
                 </div>
-                <div class="date-box">
-                    Selasa, 29 April 2025
-                </div>
+                <div class="date-box" id="tanggal-hari-ini"></div>
             </div>
+            
+            <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ...script modal yang sudah ada...
+
+    // Tanggal real-time
+    function formatTanggalLocal(date) {
+        const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        const hari = [
+            "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+        ];
+        return hari[date.getDay()] + ', ' + date.getDate() + ' ' + bulan[date.getMonth()] + ' ' + date.getFullYear();
+    }
+    var elemenTanggal = document.getElementById('tanggal-hari-ini');
+    if(elemenTanggal) {
+        elemenTanggal.textContent = formatTanggalLocal(new Date());
+    }
+});
+</script>
 
             <div class="jadwal-section-title mb-2">Jadwal Mengajar</div>
             <!-- Jadwal 1 -->
