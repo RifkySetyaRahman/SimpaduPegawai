@@ -246,6 +246,44 @@
     </div>
 </div>
 
+<!-- Modal Konfirmasi Reset Form -->
+<div class="modal fade" id="modalKonfirmasiResetForm" tabindex="-1" aria-labelledby="modalKonfirmasiResetFormLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-4">
+        <div style="font-size:1.1rem; font-weight:500; margin-bottom:18px;">
+          Apakah Anda yakin ingin me-reset semua kolom formulir?
+        </div>
+        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="btnResetFormConfirm">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.querySelector('.kelas-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Pastikan ini sesuai kelas yang sedang dimasuki!
+    localStorage.setItem('akhiriKelasMerah', '{{ $kode_kelas }}');
+    window.location.href = "{{ route('dashboard') }}";
+});
+
+document.querySelector('.btn-reset').addEventListener('click', function(e) {
+    e.preventDefault();
+    var modal = new bootstrap.Modal(document.getElementById('modalKonfirmasiResetForm'));
+    modal.show();
+});
+
+document.getElementById('btnResetFormConfirm').addEventListener('click', function() {
+    document.querySelector('.kelas-form').reset();
+    var modal = bootstrap.Modal.getInstance(document.getElementById('modalKonfirmasiResetForm'));
+    modal.hide();
+});
+</script>
+
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 @endsection

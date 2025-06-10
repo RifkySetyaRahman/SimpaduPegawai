@@ -160,28 +160,6 @@
                 </div>
                 <div class="date-box" id="tanggal-hari-ini"></div>
             </div>
-            
-            <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // ...script modal yang sudah ada...
-
-    // Tanggal real-time
-    function formatTanggalLocal(date) {
-        const bulan = [
-            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-        ];
-        const hari = [
-            "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
-        ];
-        return hari[date.getDay()] + ', ' + date.getDate() + ' ' + bulan[date.getMonth()] + ' ' + date.getFullYear();
-    }
-    var elemenTanggal = document.getElementById('tanggal-hari-ini');
-    if(elemenTanggal) {
-        elemenTanggal.textContent = formatTanggalLocal(new Date());
-    }
-});
-</script>
 
             <div class="jadwal-section-title mb-2">Jadwal Mengajar</div>
             <!-- Jadwal 1 -->
@@ -209,8 +187,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         Praktikum
                     </div>
                     <div class="col-md-3 text-end">
-                        <button class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <a href="{{ url('/kelas/masuk') }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
+                        <button id="btnAkhiriKelasTI" class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
+                        <a href="{{ route('kelas.masuk', ['kode_kelas' => 'TI']) }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
                         <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
                     </div>
                 </div>
@@ -240,8 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         Praktikum
                     </div>
                     <div class="col-md-3 text-end">
-                        <button class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <a href="{{ url('/kelas/masuk') }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
+                        <button id="btnAkhiriKelasSI" class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
+                        <a href="{{ route('kelas.masuk', ['kode_kelas' => 'SI']) }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
                         <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
                     </div>
                 </div>
@@ -317,6 +295,51 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Script untuk handle modal -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Tanggal real-time
+    function formatTanggalLocal(date) {
+        const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        const hari = [
+            "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+        ];
+        return hari[date.getDay()] + ', ' + date.getDate() + ' ' + bulan[date.getMonth()] + ' ' + date.getFullYear();
+    }
+    var elemenTanggal = document.getElementById('tanggal-hari-ini');
+    if(elemenTanggal) {
+        elemenTanggal.textContent = formatTanggalLocal(new Date());
+    }
+
+    // --- Ubah warna tombol Akhiri Kelas sesuai kelas yang dipilih ---
+    var flag = localStorage.getItem('akhiriKelasMerah');
+    if(flag === 'TI') {
+    var btnTI = document.getElementById('btnAkhiriKelasTI');
+    if(btnTI) {
+        btnTI.classList.remove('btn-akhir');
+        btnTI.classList.remove('btn-secondary');
+        btnTI.classList.add('btn-danger');
+        // Tambahkan event agar tetap bisa klik
+        btnTI.addEventListener('click', function() {
+            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+            modalKonfirmasi.show();
+        });
+    }
+}
+    if(flag === 'SI') {
+    var btnSI = document.getElementById('btnAkhiriKelasSI');
+    if(btnSI) {
+        btnSI.classList.remove('btn-akhir');
+        btnSI.classList.remove('btn-secondary');
+        btnSI.classList.add('btn-danger');
+        // Tambahkan event agar tetap bisa klik
+        btnSI.addEventListener('click', function() {
+            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+            modalKonfirmasi.show();
+        });
+    }
+}
+
     // Untuk semua tombol Akhiri Kelas
     document.querySelectorAll('.btn-akhir').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -336,6 +359,23 @@ document.addEventListener('DOMContentLoaded', function() {
             // Modal sukses otomatis hilang setelah 1.5 detik
             setTimeout(function() {
                 modalSukses.hide();
+                // Ubah tombol Akhiri Kelas kembali ke abu-abu
+                var flag = localStorage.getItem('akhiriKelasMerah');
+                var btn = null;
+                if(flag === 'TI') {
+                    btn = document.getElementById('btnAkhiriKelasTI');
+                } else if(flag === 'SI') {
+                    btn = document.getElementById('btnAkhiriKelasSI');
+                }
+                if(btn) {
+                    btn.classList.remove('btn-danger');
+                    btn.classList.add('btn-akhir');
+                }
+                // Hapus backdrop jika masih ada
+                var backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(function(bd) { bd.parentNode.removeChild(bd); });
+                // Hapus flag setelah selesai
+                localStorage.removeItem('akhiriKelasMerah');
             }, 1500);
         }, 400);
     });

@@ -30,6 +30,8 @@ Route::get('/kelas/presensikelas', function () {
     return view('kelas.presensikelas');
 });
 
+Route::get('/kelas/masuk/{kode_kelas}', [App\Http\Controllers\KelasController::class, 'masuk'])->name('kelas.masuk');
+
 // Halaman beranda
 Route::get('/', function () {
     return view('welcome');
