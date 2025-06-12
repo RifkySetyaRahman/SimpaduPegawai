@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\DosenWebController;
@@ -9,32 +10,32 @@ use App\Http\Controllers\Web\StatusWebController;
 use App\Http\Controllers\Web\PegawaiWebController;
 use App\Http\Controllers\Web\PresensiWebController;
 use App\Http\Controllers\Web\ProvinsiWebController;
-
 use App\Http\Controllers\Web\DashboardController;
-Route::get('/dashboard', function () {
+use App\Http\Controllers\Web\KelasWebController;
+use App\Http\Controllers\Web\KelasPesertaWebController;
+use App\Http\Controllers\Web\KelasPresensiWebController;
+use App\Http\Controllers\KelasController;
+
+// Hapus semua route '/' lain, cukup satu ini:
+Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
 
-use App\Http\Controllers\Web\KelasWebController;
+// Route dashboard (opsional, jika ingin akses via /dashboard juga)
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+// Kelas
 Route::get('/kelas/masuk', function () {
     return view('kelas.masuk');
 });
-
-use App\Http\Controllers\Web\KelasPesertaWebController;
+Route::get('/kelas/masuk/{kode_kelas}', [KelasController::class, 'masuk'])->name('kelas.masuk');
 Route::get('/kelas/pesertakelas', function () {
     return view('kelas.pesertakelas');
 });
-
-use App\Http\Controllers\Web\KelasPresensiWebController;
 Route::get('/kelas/presensikelas', function () {
     return view('kelas.presensikelas');
-});
-
-Route::get('/kelas/masuk/{kode_kelas}', [App\Http\Controllers\KelasController::class, 'masuk'])->name('kelas.masuk');
-
-// Halaman beranda
-Route::get('/', function () {
-    return view('welcome');
 });
 
 // Group route dengan prefix "adminpgw"
@@ -50,9 +51,8 @@ Route::prefix('adminpgw')->group(function () {
 Route::prefix('dosen')->group(function () {
     Route::get('/buka-kelas', [BukaKelasController::class, 'index'])->name('dosen.buka-kelas.index');
     Route::post('/buka-kelas/absen-dosen', [BukaKelasController::class, 'absenDosen'])->name('dosen.absen.dosen');
-});
     Route::get('matakuliah', [DosenWebController::class, 'index'])->name('dosen.matakuliah.index');
     Route::get('matakuliah/create', [DosenWebController::class, 'create'])->name('dosen.matakuliah.create');
     Route::post('matakuliah', [DosenWebController::class, 'store'])->name('dosen.matakuliah.store');
     Route::delete('matakuliah/{id}', [DosenWebController::class, 'destroy'])->name('dosen.matakuliah.destroy');
-
+});

@@ -188,8 +188,9 @@
                     </div>
                     <div class="col-md-3 text-end">
                         <button id="btnAkhiriKelasTI" class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <a href="{{ route('kelas.masuk', ['kode_kelas' => 'TI']) }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
-                        <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
+                        <button class="btn btn-primary btn-sm mb-1 btn-buka-kelas" data-kode="TI">Masuk Kelas</button>
+                        <button class="btn btn-outline-primary btn-sm mb-1 btn-detail-kelas" data-kode="TI">Detail Kelas</button>
+
                     </div>
                 </div>
             </div>
@@ -219,8 +220,8 @@
                     </div>
                     <div class="col-md-3 text-end">
                         <button id="btnAkhiriKelasSI" class="btn btn-akhir btn-sm mb-1">Akhiri Kelas</button>
-                        <a href="{{ route('kelas.masuk', ['kode_kelas' => 'SI']) }}" class="btn btn-primary btn-sm mb-1">Masuk Kelas</a>
-                        <button class="btn btn-outline-primary btn-sm">Detail Kelas</button>
+                        <button class="btn btn-primary btn-sm mb-1 btn-buka-kelas" data-kode="SI">Masuk Kelas</button>
+                        <button class="btn btn-outline-primary btn-sm mb-1 btn-detail-kelas" data-kode="SI">Detail Kelas</button>
                     </div>
                 </div>
             </div>
@@ -260,6 +261,19 @@
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+<!-- Modal Buka Kelas -->
+<div class="modal fade" id="modalBukaKelas" tabindex="-1" aria-labelledby="modalBukaKelasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-4">
+        <div style="font-size:1.15rem; font-weight:500; margin-bottom:18px;">
+          Kelas berhasil dibuka!
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Konfirmasi Akhiri Kelas -->
 <div class="modal fade" id="modalKonfirmasiAkhirKelas" tabindex="-1" aria-labelledby="modalKonfirmasiAkhirKelasLabel" aria-hidden="true">
@@ -311,36 +325,83 @@ document.addEventListener('DOMContentLoaded', function() {
         elemenTanggal.textContent = formatTanggalLocal(new Date());
     }
 
-    // --- Ubah warna tombol Akhiri Kelas sesuai kelas yang dipilih ---
+    // --- Restore tombol Akhiri Kelas jika flag masih ada ---
     var flag = localStorage.getItem('akhiriKelasMerah');
     if(flag === 'TI') {
-    var btnTI = document.getElementById('btnAkhiriKelasTI');
-    if(btnTI) {
-        btnTI.classList.remove('btn-akhir');
-        btnTI.classList.remove('btn-secondary');
-        btnTI.classList.add('btn-danger');
-        // Tambahkan event agar tetap bisa klik
-        btnTI.addEventListener('click', function() {
-            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
-            modalKonfirmasi.show();
-        });
+        var btnTI = document.getElementById('btnAkhiriKelasTI');
+        if(btnTI) {
+            btnTI.classList.remove('btn-akhir');
+            btnTI.classList.remove('btn-secondary');
+            btnTI.classList.add('btn-danger');
+            btnTI.onclick = function() {
+                var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+                modalKonfirmasi.show();
+            };
+        }
     }
-}
     if(flag === 'SI') {
-    var btnSI = document.getElementById('btnAkhiriKelasSI');
-    if(btnSI) {
-        btnSI.classList.remove('btn-akhir');
-        btnSI.classList.remove('btn-secondary');
-        btnSI.classList.add('btn-danger');
-        // Tambahkan event agar tetap bisa klik
-        btnSI.addEventListener('click', function() {
-            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
-            modalKonfirmasi.show();
-        });
+        var btnSI = document.getElementById('btnAkhiriKelasSI');
+        if(btnSI) {
+            btnSI.classList.remove('btn-akhir');
+            btnSI.classList.remove('btn-secondary');
+            btnSI.classList.add('btn-danger');
+            btnSI.onclick = function() {
+                var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+                modalKonfirmasi.show();
+            };
+        }
     }
-}
+    // Jangan hapus localStorage di sini!
 
-    // Untuk semua tombol Akhiri Kelas
+    // --- Handle tombol Masuk Kelas ---
+    document.querySelectorAll('.btn-buka-kelas').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var kode = btn.getAttribute('data-kode');
+            var modalBuka = new bootstrap.Modal(document.getElementById('modalBukaKelas'));
+            modalBuka.show();
+            document.getElementById('modalBukaKelas').addEventListener('hidden.bs.modal', function handler() {
+                if(kode === 'TI') {
+                    var btnTI = document.getElementById('btnAkhiriKelasTI');
+                    if(btnTI) {
+                        btnTI.classList.remove('btn-akhir');
+                        btnTI.classList.remove('btn-secondary');
+                        btnTI.classList.add('btn-danger');
+                        btnTI.onclick = function() {
+                            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+                            modalKonfirmasi.show();
+                        };
+                        localStorage.setItem('akhiriKelasMerah', 'TI');
+                    }
+                }
+                if(kode === 'SI') {
+                    var btnSI = document.getElementById('btnAkhiriKelasSI');
+                    if(btnSI) {
+                        btnSI.classList.remove('btn-akhir');
+                        btnSI.classList.remove('btn-secondary');
+                        btnSI.classList.add('btn-danger');
+                        btnSI.onclick = function() {
+                            var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
+                            modalKonfirmasi.show();
+                        };
+                        localStorage.setItem('akhiriKelasMerah', 'SI');
+                    }
+                }
+                document.getElementById('modalBukaKelas').removeEventListener('hidden.bs.modal', handler);
+            });
+        });
+    });
+
+    // Untuk tombol Detail Kelas: redirect ke halaman masuk kelas
+    document.querySelectorAll('.btn-detail-kelas').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var kode = btn.getAttribute('data-kode');
+            // Set flag agar tetap merah setelah kembali dari masuk.blade.php
+            localStorage.setItem('akhiriKelasMerah', kode);
+            window.location.href = '/kelas/masuk/' + kode;
+        });
+    });
+
+    // Untuk semua tombol Akhiri Kelas (yang masih abu-abu)
     document.querySelectorAll('.btn-akhir').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasiAkhirKelas'));
@@ -356,30 +417,29 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             var modalSukses = new bootstrap.Modal(document.getElementById('modalSuksesAkhirKelas'));
             modalSukses.show();
-            // Modal sukses otomatis hilang setelah 1.5 detik
             setTimeout(function() {
                 modalSukses.hide();
-                // Ubah tombol Akhiri Kelas kembali ke abu-abu
-                var flag = localStorage.getItem('akhiriKelasMerah');
-                var btn = null;
-                if(flag === 'TI') {
-                    btn = document.getElementById('btnAkhiriKelasTI');
-                } else if(flag === 'SI') {
-                    btn = document.getElementById('btnAkhiriKelasSI');
+                // Kembalikan tombol Akhiri Kelas ke abu-abu
+                var btnTI = document.getElementById('btnAkhiriKelasTI');
+                if(btnTI) {
+                    btnTI.classList.remove('btn-danger');
+                    btnTI.classList.add('btn-akhir');
                 }
-                if(btn) {
-                    btn.classList.remove('btn-danger');
-                    btn.classList.add('btn-akhir');
+                var btnSI = document.getElementById('btnAkhiriKelasSI');
+                if(btnSI) {
+                    btnSI.classList.remove('btn-danger');
+                    btnSI.classList.add('btn-akhir');
                 }
                 // Hapus backdrop jika masih ada
                 var backdrops = document.querySelectorAll('.modal-backdrop');
                 backdrops.forEach(function(bd) { bd.parentNode.removeChild(bd); });
-                // Hapus flag setelah selesai
+                // HAPUS FLAG DI SINI!
                 localStorage.removeItem('akhiriKelasMerah');
             }, 1500);
         }, 400);
     });
 });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

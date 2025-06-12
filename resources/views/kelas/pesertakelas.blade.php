@@ -215,6 +215,41 @@
     </div>
 </div>
 
+<!-- Modal Detail Mahasiswa -->
+<div class="modal fade" id="modalDetailMahasiswa" tabindex="-1" aria-labelledby="modalDetailMahasiswaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-body text-center py-4">
+        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Foto Mahasiswa" class="rounded-circle mb-3" style="width:90px;height:90px;object-fit:cover;">
+        <div class="text-start" style="margin-left:20px;margin-right:20px;">
+          <div style="font-weight:500;margin-bottom:8px;">Nama Lengkap : Nayla Azzahra Kirana</div>
+          <div style="margin-bottom:4px;">NIM : B2310010</div>
+          <div style="margin-bottom:4px;">Jenis Kelamin : Perempuan</div>
+          <div style="margin-bottom:4px;">Tanggal Lahir : 12 Mei 2003</div>
+          <div style="margin-bottom:4px;">Alamat : Jalan Sultan Agung, NO.10, Kalimantan Selatan, Indonesia</div>
+          <div style="margin-bottom:4px;">Email : nayla222@gmail.com</div>
+        </div>
+        <button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal">Kembali</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.detail-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var modal = new bootstrap.Modal(document.getElementById('modalDetailMahasiswa'));
+            modal.show();
+        });
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 @endsection
