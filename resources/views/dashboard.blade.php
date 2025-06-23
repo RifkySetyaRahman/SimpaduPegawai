@@ -2,6 +2,7 @@
 
 @section('content')
 <style>
+    
     .dashboard-header {
         background: linear-gradient(90deg, #1565c0 80%, #fff 100%);
         color: #fff;
