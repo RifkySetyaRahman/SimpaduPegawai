@@ -25,7 +25,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
-
+Route::get('/login', function () {
+    return view('auth.login');
+});
 // Kelas
 Route::get('/kelas/masuk', function () {
     return view('kelas.masuk');
