@@ -36,14 +36,15 @@ class PegawaiWebController extends Controller
             'provinsi_id' => 'required|exists:provinsi,id',
         ]);
 
-        Pegawai::create([
-            'id_pegawai' => $request->id_pegawai,
-            'nama_pegawai' => $request->nama_pegawai,
-            'agama' => $request->agama,
-            'status_id' => $request->status_id,
-            'kokab_id' => $request->kokab_id,
-            'provinsi_id' => $request->provinsi_id,
-        ]);
+       Pegawai::create([
+    'id_pegawai'   => $request->id_pegawai,
+    'nama_pegawai' => $request->nama_pegawai,
+    'agama'        => $request->agama,
+    'id_status'    => $request->status_id,
+    'id_kokab'     => $request->kokab_id,
+    'id_provinsi'  => $request->provinsi_id,  
+]);
+
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
     }
