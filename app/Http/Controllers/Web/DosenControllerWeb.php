@@ -11,7 +11,7 @@ class DosenWebController extends Controller
 {
     // Menampilkan semua relasi dosen-matakuliah
     public function index()
-    {
+    { 
         $relasi = DosenMatakuliah::all();
 
         // Ambil detail matakuliah dari service prodi

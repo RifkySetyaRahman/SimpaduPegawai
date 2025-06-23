@@ -15,7 +15,7 @@ class PresensiController extends Controller
         ]);
 
         // Kirim ke service admin untuk membuat pertemuan (presensi_dosen)
-        $res = Http::post('http://ti054e01.admin.local/api/presensi/pertemuan', [
+        $res = Http::post('http://ti054e01.agussbn.my.id/api/presensi/pertemuan', [
             'kelas_id' => $request->kelas_id,
             'dosen_id' => $request->dosen_id,
             'tanggal' => $request->tanggal
