@@ -2,18 +2,7 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Third Party Services
-    |--------------------------------------------------------------------------
-    |
-    | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
-    |
-    */
-
+    // Konfigurasi standar
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -33,6 +22,19 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+    ],
+
+    // Tambahan untuk proyek microservices
+    'dosen_origin' => env('DOSEN_ORIGIN', 'https://ti054e02.agussbn.my.id'),
+
+    'urls' => [
+        'admin_service' => env('ADMIN_SERVICE_URL', 'https://ti054e01.agussbn.my.id/api'),
+        'dosen_service' => env('APP_URL', 'https://ti054e02.agussbn.my.id'), // Tambahan penting
+    ],
+
+    'tokens' => [
+        'admin_service' => env('ADMIN_SERVICE_TOKEN'),
+        'dosen_service' => env('DOSEN_SERVICE_TOKEN'), // Pastikan ini ada jika dipakai
     ],
 
 ];
