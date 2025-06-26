@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Proxy;
 
 use Illuminate\Http\Request;
 use App\Services\HttpProxyService;
+use App\Http\Controllers\Controller;
 
 class ProxyController extends Controller
 {
