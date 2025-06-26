@@ -54,7 +54,7 @@ Pegawai::create([
     'id_provinsi'  => $request->id_provinsi,
 ]);
 
-    return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
+    return response()->json(['message' => 'Pegawai berhasil ditambahkan.']);
 }
 
 

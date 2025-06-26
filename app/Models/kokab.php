@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kokab extends Model
+class kokab extends Model
 {
     protected $table = 'kokab';
     protected $primaryKey = 'id_kokab';

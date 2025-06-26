@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace app\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class PresensiController extends Controller
+class PresensiWebController extends Controller
 {
 // Tampilkan form buka kelas (presensi)
 public function showForm() {
