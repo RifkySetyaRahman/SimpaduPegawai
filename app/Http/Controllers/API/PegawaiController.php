@@ -33,30 +33,24 @@ class PegawaiController extends Controller
 }
 
 
-   public function store(Request $request)
-{$request->validate([
-    'id_pegawai'    => 'required|string|unique:pegawai,id_pegawai',
-    'nama_pegawai'  => 'required|string|max:255',
-    'agama'         => 'required|string|max:50',
-    'jk'            => 'required|string|max:10',
-    'id_status'     => 'required|exists:status,id_status',
-    'id_kokab'      => 'required|exists:kokab,id_kokab',
-    'id_provinsi'   => 'required|exists:provinsi,id_provinsi',
-]);
+    // Simpan data pegawai baru
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_pegawai'   => 'required|string|max:50',
+            'agama'          => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Khonghucu',
+            'id_status'      => 'required|exists:status,id_status',
+            'id_kokab'       => 'required|exists:kokab,id_kokab',
+            'alamat'         => 'required|string|max:100',
+            'nomor_telepon'  => 'required|string|max:15',
+            'id_provinsi'    => 'required|exists:provinsi,id_provinsi',
+            'jk'             => 'required|in:laki-laki,perempuan',
+        ]);
 
-Pegawai::create([
-    'id_pegawai'   => $request->id_pegawai,
-    'nama_pegawai' => $request->nama_pegawai,
-    'agama'        => $request->agama,
-    'jk'           => $request->jk,
-    'id_status'    => $request->id_status,
-    'id_kokab'     => $request->id_kokab,
-    'id_provinsi'  => $request->id_provinsi,
-]);
+        $pegawai = Pegawai::create($validated);
 
-    return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
-}
-
+        return new PegawaiResource($pegawai);
+    }
 
     // Ambil 1 data pegawai
     public function show($id)

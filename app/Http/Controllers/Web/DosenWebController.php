@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Controllers\Web;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class DosenWebController extends Controller
 {
     // Menampilkan semua relasi dosen-matakuliah
     public function index()
-    { 
+    {
         $relasi = DosenMatakuliah::all();
 
         // Ambil detail matakuliah dari service prodi

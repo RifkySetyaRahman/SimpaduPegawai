@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Proxy;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\Controller;
 
 class ProxyPegawaiController extends Controller
 {

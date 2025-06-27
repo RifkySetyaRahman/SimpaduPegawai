@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\DosenWebController;
 use App\Http\Controllers\Web\KokabWebController;
-use App\Http\Controllers\Api\BukaKelasController;
+use App\Http\Controllers\Web\BukaKelasController;
 use App\Http\Controllers\Web\StatusWebController;
 use App\Http\Controllers\Web\PegawaiWebController;
 use App\Http\Controllers\Web\PresensiWebController;
@@ -41,13 +41,14 @@ Route::get('/kelas/presensikelas', function () {
 });
 
 // Group route dengan prefix "adminpgw"
-Route::prefix('adminpgw')->group(function () {
+Route::prefix('adminpgw')->as('adminpgw.')->group(function () {
     Route::resource('pegawai', PegawaiWebController::class);
     Route::resource('status', StatusWebController::class);
     Route::resource('kokab', KokabWebController::class);
     Route::resource('provinsi', ProvinsiWebController::class);
     Route::resource('presensi', PresensiWebController::class);
 });
+
 
 // Group route untuk dosen
 Route::prefix('dosen')->group(function () {

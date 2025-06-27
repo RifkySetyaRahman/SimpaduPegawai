@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\Services;
+=======
+namespace app\Services;
+>>>>>>> 089f44e84586d05e9ee02a44a3e57a5d0cbc7ed3
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
