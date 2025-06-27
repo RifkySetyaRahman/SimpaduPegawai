@@ -25,29 +25,32 @@ class PegawaiWebController extends Controller
         return view('pegawai.create', compact('statusList', 'kokabList', 'provinsiList'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_pegawai' => 'required|string|unique:pegawai,id_pegawai',
-            'nama_pegawai' => 'required|string|max:255',
-            'agama' => 'required|string|max:50',
-            'status_id' => 'required|exists:status,id',
-            'kokab_id' => 'required|exists:kokab,id',
-            'provinsi_id' => 'required|exists:provinsi,id',
-        ]);
-
-       Pegawai::create([
-    'id_pegawai'   => $request->id_pegawai,
-    'nama_pegawai' => $request->nama_pegawai,
-    'agama'        => $request->agama,
-    'id_status'    => $request->status_id,
-    'id_kokab'     => $request->kokab_id,
-    'id_provinsi'  => $request->provinsi_id,  
+   public function store(Request $request)
+{
+   $request->validate([
+    'id_pegawai'    => 'required|string|unique:pegawai,id_pegawai',
+    'nama_pegawai'  => 'required|string|max:255',
+    'agama'         => 'required|string|max:50',
+    'status_id'     => 'required|exists:status,id_status',   // ✅ yang benar
+    'kokab_id'      => 'required|exists:kokab,id_kokab',     // ✅
+    'provinsi_id'   => 'required|exists:provinsi,id_provinsi', // ✅
+    'alamat'        => 'required|string|max:255',
+    'nomor_telepon' => 'required|string|max:20',
+    'jk'            => 'required|in:laki-laki,perempuan',
 ]);
 
 
-        return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
-    }
+        Pegawai::create([
+            'id_pegawai' => $request->id_pegawai,
+            'nama_pegawai' => $request->nama_pegawai,
+            'agama' => $request->agama,
+            'status_id' => $request->status_id,
+            'kokab_id' => $request->kokab_id,
+            'provinsi_id' => $request->provinsi_id,
+        ]);
+
+    return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil ditambahkan.');
+}
 
     public function edit(Pegawai $pegawai)
     {
@@ -60,30 +63,33 @@ class PegawaiWebController extends Controller
     public function update(Request $request, Pegawai $pegawai)
     {
         $request->validate([
-            'id_pegawai' => 'required|string|unique:pegawai,id_pegawai,' . $pegawai->id,
+            'id_pegawai'   => 'required|string|unique:pegawai,id_pegawai,' . $pegawai->id_pegawai . ',id_pegawai',
             'nama_pegawai' => 'required|string|max:255',
-            'agama' => 'required|string|max:50',
-            'status_id' => 'required|exists:status,id',
-            'kokab_id' => 'required|exists:kokab,id',
-            'provinsi_id' => 'required|exists:provinsi,id',
+            'agama'        => 'required|string|max:50',
+            'jk'           => 'required|in:laki-laki,perempuan',
+            'status_id'    => 'required|exists:status,id',
+            'kokab_id'     => 'required|exists:kokab,id',
+            'provinsi_id'  => 'required|exists:provinsi,id',
         ]);
 
         $pegawai->update([
-            'id_pegawai' => $request->id_pegawai,
+            'id_pegawai'   => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
-            'agama' => $request->agama,
-            'status_id' => $request->status_id,
-            'kokab_id' => $request->kokab_id,
-            'provinsi_id' => $request->provinsi_id,
+            'agama'        => $request->agama,
+            'jk'           => $request->jk,
+            'id_status'    => $request->status_id,
+            'id_kokab'     => $request->kokab_id,
+            'id_provinsi'  => $request->provinsi_id,
         ]);
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil diperbarui.');
     }
 
     public function show(Pegawai $pegawai)
-{
-    return view('pegawai.show', compact('pegawai'));
-}
+    {
+        return view('pegawai.show', compact('pegawai'));
+    }
+
     public function destroy(Pegawai $pegawai)
     {
         $pegawai->delete();
